@@ -112,7 +112,6 @@
                                     remainingBalance[i] = remainingBalance[i - 1] - principalPayment[i];
                                     totalInterestAmount[i] = totalInterestAmount[i - 1] + interestPayment[i];
                                 }
-
                                 return {
                                     principalPayment,
                                     interestPayment,
@@ -132,19 +131,25 @@
                                     let tableCells = eventRow.querySelectorAll('td');
                             
                                     tableCells[0].textContent = i + 1;
-                                    tableCells[1].textContent = Intl.NumberFormat().format(calcResult.totalMonthlyPayment);
-                                    tableCells[2].textContent = Intl.NumberFormat().format(calcResult.principalPayment[i]);
-                                    tableCells[3].textContent = Intl.NumberFormat().format(calcResult.interestPayment[i]);
-                                    tableCells[4].textContent = Intl.NumberFormat().format(calcResult.totalInterestAmount[i]);
-                                    tableCells[5].textContent = Intl.NumberFormat().format(calcResult.remainingBalance[i]);
+                                    tableCells[1].textContent = formatAsCurrency(calcResult.totalMonthlyPayment);
+                                    tableCells[2].textContent = formatAsCurrency(calcResult.principalPayment[i]);
+                                    tableCells[3].textContent = formatAsCurrency(calcResult.interestPayment[i]);
+                                    tableCells[4].textContent = formatAsCurrency(calcResult.totalInterestAmount[i]);
+                                    tableCells[5].textContent = formatAsCurrency(calcResult.remainingBalance[i]);
                             
                                     tableBody.appendChild(eventRow);
                                 }
                             
                                 document.getElementById('totalPrincipcal').textContent = amountLoaned;
-                                document.getElementById('totalInterest').textContent = Intl.NumberFormat().format(calcResult.totalInterestAmount[paymentTerm - 1]);
-                                document.getElementById('totalCost').textContent = Intl.NumberFormat().format(amountLoaned + calcResult.totalInterestAmount[paymentTerm - 1]);
-                                document.getElementById('monthlyPayment').textContent = Intl.NumberFormat().format(calcResult.totalMonthlyPayment);
+                                document.getElementById('totalInterest').textContent = formatAsCurrency(calcResult.totalInterestAmount[paymentTerm - 1]);
+                                document.getElementById('totalCost').textContent = formatAsCurrency(amountLoaned + calcResult.totalInterestAmount[paymentTerm - 1]);
+                                document.getElementById('monthlyPayment').textContent = formatAsCurrency(calcResult.totalMonthlyPayment);
+                            }
+                            function formatAsCurrency(value){
+                                return Number(value).toLocaleString("en-IS", {
+                                    style: "currency",
+                                    currency: "USD"
+                                });
                             }
                         </code>
                     </pre>
