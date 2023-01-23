@@ -37,7 +37,7 @@ function getValue() {
 
 
 function doCalc(amountLoaned, paymentTerm, rate) {
-    let totalMonthlyPayment = (amountLoaned * (rate / 1200) / (1 - (1 + rate / 1200) ** (- paymentTerm))).toFixed(2);
+    let totalMonthlyPayment = amountLoaned * (rate / 1200) / (1 - (1 + rate / 1200) ** (- paymentTerm));
     let remainingBalance = [];
     remainingBalance[-1] = amountLoaned;
     let interestPayment = [];
@@ -51,10 +51,6 @@ function doCalc(amountLoaned, paymentTerm, rate) {
         principalPayment[i] = totalMonthlyPayment - interestPayment[i];
         remainingBalance[i] = remainingBalance[i - 1] - principalPayment[i];
         totalInterestAmount[i] = totalInterestAmount[i - 1] + interestPayment[i];
-
-        interestPayment[i] = interestPayment[i].toFixed(2);
-        principalPayment[i] = principalPayment[i].toFixed(2);
-        remainingBalance[i] = remainingBalance[i].toFixed(2);
     }
     return {
         principalPayment,
