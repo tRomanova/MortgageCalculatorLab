@@ -51,8 +51,6 @@ function displayResults(calcResult, paymentTerm, amountLoaned) {
 
     for (let i = 0; i < paymentTerm; i++) {
         let eventRow = document.importNode(tableRowTamplate.content, true);
-        // let currentmonth = calcResult.paymentTerm[i];
-
         let tableCells = eventRow.querySelectorAll('td');
 
         tableCells[0].textContent = i + 1;
@@ -61,7 +59,6 @@ function displayResults(calcResult, paymentTerm, amountLoaned) {
         tableCells[3].textContent = calcResult.interestPayment[i];
         tableCells[4].textContent = calcResult.totalInterestAmount[i];
         tableCells[5].textContent = calcResult.remainingBalance[i];
-        // console.log('eventRow', eventRow);
 
         tableBody.appendChild(eventRow);
     }

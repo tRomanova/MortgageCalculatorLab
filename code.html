@@ -113,8 +113,6 @@
                             
                                 for (let i = 0; i < paymentTerm; i++) {
                                     let eventRow = document.importNode(tableRowTamplate.content, true);
-                                    // let currentmonth = calcResult.paymentTerm[i];
-                            
                                     let tableCells = eventRow.querySelectorAll('td');
                             
                                     tableCells[0].textContent = i + 1;
