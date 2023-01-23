@@ -75,18 +75,17 @@ function displayResults(calcResult, paymentTerm, amountLoaned) {
         let tableCells = eventRow.querySelectorAll('td');
 
         tableCells[0].textContent = i + 1;
-        tableCells[1].textContent = calcResult.totalMonthlyPayment;
-        tableCells[2].textContent = calcResult.principalPayment[i];
-        tableCells[3].textContent = calcResult.interestPayment[i];
-        tableCells[4].textContent = calcResult.totalInterestAmount[i];
-        tableCells[5].textContent = calcResult.remainingBalance[i];
+        tableCells[1].textContent = Intl.NumberFormat().format(calcResult.totalMonthlyPayment);
+        tableCells[2].textContent = Intl.NumberFormat().format(calcResult.principalPayment[i]);
+        tableCells[3].textContent = Intl.NumberFormat().format(calcResult.interestPayment[i]);
+        tableCells[4].textContent = Intl.NumberFormat().format(calcResult.totalInterestAmount[i]);
+        tableCells[5].textContent = Intl.NumberFormat().format(calcResult.remainingBalance[i]);
 
         tableBody.appendChild(eventRow);
     }
 
     document.getElementById('totalPrincipcal').textContent = amountLoaned;
-    document.getElementById('totalInterest').textContent = (calcResult.totalInterestAmount[paymentTerm - 1]).toFixed(2);
-    document.getElementById('totalCost').textContent = (amountLoaned + calcResult.totalInterestAmount[paymentTerm - 1]).toFixed(2);
-    document.getElementById('monthlyPayment').textContent = calcResult.totalMonthlyPayment;
-
+    document.getElementById('totalInterest').textContent = Intl.NumberFormat().format(calcResult.totalInterestAmount[paymentTerm - 1]);
+    document.getElementById('totalCost').textContent = Intl.NumberFormat().format(amountLoaned + calcResult.totalInterestAmount[paymentTerm - 1]);
+    document.getElementById('monthlyPayment').textContent = Intl.NumberFormat().format(calcResult.totalMonthlyPayment);
 }

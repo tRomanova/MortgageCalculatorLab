@@ -59,21 +59,40 @@
         </nav>
     </header>
 
-
     <main class="content container">
-
         <div class="content container">
-            <div class="row">
-                <h1 class="border-bottom border-2 border-dark">The code</h1>
-                <div class="col col-12 col-lg">
+            <div class="row row-cols-1">
+                <h1 class="border-bottom border-2 border-dark pb-2">Mortgage Loan Calculator</h1>
+                <div class="col col-12 col-lg-6">
                     <pre class="line-numbers">
                         <code class="language-js">
                             function getValue() {
-                                let amountLoaned = parseInt(document.getElementById('loanAmount').value);
                                 let paymentTerm = parseInt(document.getElementById('payment').value);
-                                let rate = parseInt(document.getElementById('rate').value);
+                                let amountLoaned = parseFloat(document.getElementById('loanAmount').value);
+                                let rate = parseFloat(document.getElementById('rate').value);
+                                let calcResult;
                             
-                                let calcResult = doCalc(amountLoaned, paymentTerm, rate);
+                                if (isNaN(paymentTerm) || isNaN(amountLoaned) || isNaN (rate)){
+                                    Swal.fire(
+                                        {
+                                            icon: 'error',
+                                            title: 'Oops',
+                                            text: 'Please enter numerical values!'
+                                        }
+                                    )
+                                }
+                                if ( rate !== 0){
+                                    calcResult = doCalc(amountLoaned, paymentTerm, rate);
+                                }else{
+                                    Swal.fire(
+                                        {
+                                            icon: 'error',
+                                            title: 'Oops',
+                                            text: 'Interest rate can not be 0.'
+                                        }
+                                    )
+                                }
+                            
                                 displayResults(calcResult, paymentTerm, amountLoaned);
                             }
                             
@@ -116,29 +135,42 @@
                                     let tableCells = eventRow.querySelectorAll('td');
                             
                                     tableCells[0].textContent = i + 1;
-                                    tableCells[1].textContent = calcResult.totalMonthlyPayment;
-                                    tableCells[2].textContent = calcResult.principalPayment[i];
-                                    tableCells[3].textContent = calcResult.interestPayment[i];
-                                    tableCells[4].textContent = calcResult.totalInterestAmount[i];
-                                    tableCells[5].textContent = calcResult.remainingBalance[i];
-                                    // console.log('eventRow', eventRow);
+                                    tableCells[1].textContent = Intl.NumberFormat().format(calcResult.totalMonthlyPayment);
+                                    tableCells[2].textContent = Intl.NumberFormat().format(calcResult.principalPayment[i]);
+                                    tableCells[3].textContent = Intl.NumberFormat().format(calcResult.interestPayment[i]);
+                                    tableCells[4].textContent = Intl.NumberFormat().format(calcResult.totalInterestAmount[i]);
+                                    tableCells[5].textContent = Intl.NumberFormat().format(calcResult.remainingBalance[i]);
                             
                                     tableBody.appendChild(eventRow);
                                 }
                             
                                 document.getElementById('totalPrincipcal').textContent = amountLoaned;
-                                document.getElementById('totalInterest').textContent = (calcResult.totalInterestAmount[paymentTerm - 1]).toFixed(2);
-                                document.getElementById('totalCost').textContent = (amountLoaned + calcResult.totalInterestAmount[paymentTerm - 1]).toFixed(2);
-                                document.getElementById('monthlyPayment').textContent = calcResult.totalMonthlyPayment;
-                            
+                                document.getElementById('totalInterest').textContent = Intl.NumberFormat().format(calcResult.totalInterestAmount[paymentTerm - 1]);
+                                document.getElementById('totalCost').textContent = Intl.NumberFormat().format(amountLoaned + calcResult.totalInterestAmount[paymentTerm - 1]);
+                                document.getElementById('monthlyPayment').textContent = Intl.NumberFormat().format(calcResult.totalMonthlyPayment);
                             }
                         </code>
                     </pre>
                 </div>
-                <div class="col col-12 col-lg-4">
-                    <p>The code is structured in one function</p>
-                    <p><code>displayMessage</code></p>
-                    <p>Print out the message</p>
+                <div class="col col-12 col-lg-6">
+                    <h5>The code is structured in three functions</h5>
+                    <p class="px-3">The First function <code>getValues</code> grabs the values from HTML form,
+                        checks if it is an integer. If not, an alert is thrown.
+                        If everything is good it will call a functo <code>doCalc</code>.
+                    </p>
+                    <p class="px-3"><code>doCalc</code> is the function that will do all calculation that we need to get data for mortgage.
+                        In this function I am declaring some variable as an array bacause I need data for every month.
+                        Then I am using a for loop to iterate the formulas to culculate mortgage as many time as many monthes are interd.
+                        Finally I am returning an object that will have values that I need. 
+                    </p>
+                    <p class="px-3">
+                        Finally third function <code>displayResults</code> 
+                        is called that grabs the element of HTML where we want to display the result.
+                        I am using a for loop to displai data for every month. By using <code>importNode()</code>
+                        we are reaching the  row template, and <code>querySelectorAll()</code>
+                        we are sowing the element 'td' where we want to display the data. 
+                        After when I am done with a for loop I am grabbing elemets where I want to display another data.
+                    </p>
                 </div>
             </div>
         </div>
