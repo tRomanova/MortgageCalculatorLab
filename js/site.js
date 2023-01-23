@@ -1,10 +1,31 @@
 //function that get 
 function getValue() {
-    let amountLoaned = parseInt(document.getElementById('loanAmount').value);
     let paymentTerm = parseInt(document.getElementById('payment').value);
-    let rate = parseInt(document.getElementById('rate').value);
+    let amountLoaned = parseFloat(document.getElementById('loanAmount').value);
+    let rate = parseFloat(document.getElementById('rate').value);
+    let calcResult;
 
-    let calcResult = doCalc(amountLoaned, paymentTerm, rate);
+    if (isNaN(paymentTerm) || isNaN(amountLoaned) || isNaN (rate)){
+        Swal.fire(
+            {
+                icon: 'error',
+                title: 'Oops',
+                text: 'Please enter numerical values!'
+            }
+        )
+    }
+    if ( rate !== 0){
+        calcResult = doCalc(amountLoaned, paymentTerm, rate);
+    }else{
+        Swal.fire(
+            {
+                icon: 'error',
+                title: 'Oops',
+                text: 'Interest rate can not be 0.'
+            }
+        )
+    }
+
     displayResults(calcResult, paymentTerm, amountLoaned);
 }
 
