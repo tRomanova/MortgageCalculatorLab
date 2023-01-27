@@ -63,7 +63,7 @@
         <div class="content container">
             <div class="row row-cols-1">
                 <h1 class="border-bottom border-2 border-dark pb-2">Mortgage Loan Calculator</h1>
-                <div class="col col-12 col-lg">
+                <div class="col col-md-8 col-lg">
                     <pre class="line-numbers">
                         <code class="language-js">
                             function getValue() {
@@ -154,8 +154,8 @@
                         </code>
                     </pre>
                 </div>
-                <div class="col col-12 col-lg-4">
-                    <h5>The code is structured in three functions</h5>
+                <div class="col col-md-4 col-lg-4">
+                    <h5>The code is structured in four functions</h5>
                     <p class="px-3">The First function <code>getValues</code> grabs the values from HTML form,
                         checks if it is an integer. If not, an alert is thrown.
                         If everything is good it will call a functo <code>doCalc</code>.
@@ -173,6 +173,7 @@
                         I am reaching the row template, and <code>querySelectorAll()</code>
                         I am passing the element 'td', the element where I want to display the data. 
                         When I am done with a for loop I am displaying data in the other evement on my page. 
+                        to formate numbers I am calling <code>formatAsCurrency</code> function on the value that I want to be displayed.
                     </p>
                 </div>
             </div>

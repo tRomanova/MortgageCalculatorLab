@@ -14,14 +14,15 @@ function getValue() {
             }
         )
     }
-    if ( rate !== 0){
+    if ( rate > 0 && paymentTerm > 0 && amountLoaned > 0){
         calcResult = doCalc(amountLoaned, paymentTerm, rate);
     }else{
         Swal.fire(
             {
                 icon: 'error',
                 title: 'Oops',
-                text: 'Interest rate can not be 0.'
+                text: 'Please enter values that is greater than "0"!'
+                // text: 'Interest rate can not be 0.'
             }
         )
     }
