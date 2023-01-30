@@ -155,25 +155,40 @@
                     </pre>
                 </div>
                 <div class="col col-md-4 col-lg-4">
-                    <h5>The code is structured in four functions</h5>
-                    <p class="px-3">The First function <code>getValues</code> grabs the values from HTML form,
-                        checks if it is an integer. If not, an alert is thrown.
-                        If everything is good it will call a functo <code>doCalc</code>.
-                        Once I got a results from <code>doCalc</code> function I am calling the <code>displayResults</code> function. 
+                    <h5>The code is divided in four functions</h5>
+                    <p class="px-3">The First function <code>getValues</code> grabs three values from HTML form,
+                        that user entered - payment, loan amount, and rate.
+                        It then checks if these are positive numbers. If not, an error message is thrown.
+                        If everything is good, it will call function <code>doCalc</code>.
+                        Once function <code>doCalc</code> returns the output of the calculation,
+                        <code>displayResults</code> function is called.
                     </p>
-                    <p class="px-3"><code>doCalc</code> is the function that will do all calculation that we need to get data for mortgage.
-                        In this function I am declaring some variable as an array bacause I need data for every month.
-                        Then I am using a for loop to iterate the formulas to culculate mortgage as many time as many monthes are interd.
-                        Finally I am returning an object that will have values that I need. 
+                    <p class="px-3"><code>doCalc</code> is the function that does all the calculations needed to
+                        get the mortgage data.
+                        This function takes payment, loan amount, and rate as input parameters.
+                        It then calculates 'total monthly payment' based on given formula.
+                        In this function, I am declaring variables as arrays bacause I need data for every month.
+                        Then I am calculating
+                        1) Interest payment = remaining balance (from previous month) * rate /1200
+                        Remaining balance for the first month is equal to total loan amount.
+                        2) Principal payment = Monthly Payment - Interest Payment
+                        3) Remaining Balance = Previous month's remaining balance - Principal payment
+                        4) Total interest amount is cumulative total of monthly interests
+                        For subsequent months, remaining balance is calculated as
+                        Finally I am returning these values as an object.
                     </p>
                     <p class="px-3">
-                        Finally third function <code>displayResults</code> 
-                        is called that grabs the element of HTML where I want to display the result.
-                        I am using a for loop to displai data for every month. By using <code>importNode()</code>
-                        I am reaching the row template, and <code>querySelectorAll()</code>
-                        I am passing the element 'td', the element where I want to display the data. 
-                        When I am done with a for loop I am displaying data in the other evement on my page. 
-                        to formate numbers I am calling <code>formatAsCurrency</code> function on the value that I want to be displayed.
+                        Third function <code>displayResults</code> accepts calculated amounts from doCalc function. It
+                        also takes
+                        payment term and loan amount as two other parameters.
+                        I grab the table body element of HTML where I want to display the result.
+                        I am using a for loop to display the mortgage data for every month.
+                        By using <code>importNode()</code> I am grabbing the row template, and then using
+                        <code>querySelectorAll()</code> to select all table cells (td).
+                        I am passing the monthly mortgage data in each 'td' element of a row.
+                        When I am done with the for loop, I am updating total amounts (principal, interest, cost) and
+                        monthly payment on top of the page.
+                        I am calling <code>formatAsCurrency</code> function to format the amounts in USD for display.
                     </p>
                 </div>
             </div>
